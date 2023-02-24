@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
 
 export const ResultsPage = () => {
-	const [ssr, setSsr] = useState('');
+	const [ssrHTML, setSsrHTML] = useState('');
+	const [ssrJS, setSsrJS] = useState('');
 	const [searchParams] = useSearchParams();
 
 	useEffect(() => {
@@ -12,13 +13,8 @@ export const ResultsPage = () => {
 				const { data } = await response.json()
 
 				window.APP_STATE = data.data;
-				setSsr(data.html);
-					
-				setTimeout(() => {
-					const newScript = document.createElement("script");
-					newScript.text = data.javascript;
-					document.body.appendChild(newScript);
-				})
+				setSsrHTML(data.html);
+				setSsrJS(data.javascript);
 			} catch(e) {	
 				console.log('error: ', e)
 			}
@@ -30,10 +26,19 @@ export const ResultsPage = () => {
 		}
 	}, []);
 
+	useEffect(() => {
+		if(ssrJS) {
+			const newScript = document.createElement("script");
+			newScript.text = ssrJS;
+			document.body.appendChild(newScript);
+			return () =>  document.body.removeChild(newScript)
+		}
+	}, [ssrJS])
+
 	return (
 		<div>
 			Results Page:
-			<div id="result-page-root" dangerouslySetInnerHTML={{ __html: ssr }} />
+			<div id="result-page-root" dangerouslySetInnerHTML={{ __html: ssrHTML }} />
 		</div>
 	)
 }
