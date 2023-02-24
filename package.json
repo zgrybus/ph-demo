@@ -4,6 +4,7 @@
     "start": "webpack serve --mode=development",
     "build": "yarn clean && webpack --mode production"
   },
+  "homepage": "https://github.com/zgrybus/ph-demo",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
