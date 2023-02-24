@@ -8,7 +8,7 @@ export const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/ph-demo" element={<Layout />}>
           <Route index element={<PlannerFormTheFeed />} />
           <Route path="results" element={<ResultsPage />} />
         </Route>

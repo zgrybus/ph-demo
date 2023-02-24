@@ -7,7 +7,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'docs'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/ph-demo'
   },
   module: {
     rules: [
